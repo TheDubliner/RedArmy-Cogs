@@ -1,0 +1,8 @@
+{
+    "author": ["TheDubliner"],
+    "install_msg": "Experimental rubbish. Install at your own risk!",
+    "name": "Red Army Cogs",
+    "short": "Cogs created for use with Red-DiscordBot on #redarmy-clan.",
+    "description": "A collection of random cogs.",
+    "tags": ["quake", "games"]
+}
