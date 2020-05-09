@@ -1,0 +1,9 @@
+{
+    "author" : "TheDubliner",
+    "install_msg" : "QuakeStats cog installed. Use at your own risk!",
+    "name" : "QuakeStats",
+    "short" : "Display stats from the Quake Champions API.",
+    "requirements" : ["pillow", "requests", "tabulate"],
+    "description" : "Experimental",
+    "tags" : ["Games", "Fun", "Quake"]
+}
