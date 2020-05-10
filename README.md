@@ -26,7 +26,20 @@ Load installed cogs:
 
 Name | Description
 --- | ---
+[Anno Domini](../master/README.md#anno%20domini) | Play Anno Domini in your channel.
 [Quake Stats](../master/README.md#quake%20stats) | Display Quake Champion stats.
+
+## Anno Domini
+
+This cog will let you set up and play a game of Anno Domini in your server.
+
+### Usage
+
+**`[p]annodomini newgame`**
+
+Begin a game of Anno Domini.
+
+**`[p]annodomini newgame`**
 
 ## Quake Stats
 
@@ -47,6 +60,10 @@ Register your Quake player name with the bot.
 **`[p]quakestats getname`**
 
 Display the Quake player name registered with the bot.
+
+**`[p]quakestats match [player name]`**
+
+Display stats from the player’s most recent match.
 
 # Help
 

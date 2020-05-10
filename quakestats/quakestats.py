@@ -93,10 +93,10 @@ class QuakeStats(commands.Cog):
         with ctx.channel.typing():
             stats = self.api.get_player_stats(playername)
             if stats:
-            duelrank = self.api.get_player_rank(
-                stats["playerRatings"]["duel"]["rating"], human=True)
-            duetrank = self.api.get_player_rank(
-                stats["playerRatings"]["tdm"]["rating"], human=True)
+                duelrank = self.api.get_player_rank(
+                    stats["playerRatings"]["duel"]["rating"], human=True)
+                duetrank = self.api.get_player_rank(
+                    stats["playerRatings"]["tdm"]["rating"], human=True)
                 msg = f'**Duel**:\n'
                 msg += f'```\n'
                 msg += f'Rating: {stats["playerRatings"]["duel"]["rating"]}' \
@@ -126,3 +126,105 @@ class QuakeStats(commands.Cog):
                 return await ctx.channel.send(file=img, embed=embed)
             else:
                 return await ctx.channel.send('User not found!')
+
+    @quakestats.command()
+    async def match(self, ctx : commands.Context, *, player : str = None):
+        """
+        Get stats for your most recent match.
+        """
+        if player is None:
+            uuid = await self.config.member(ctx.author).uuid()
+            if uuid:
+                player = uuid
+            else:
+                return await ctx.send_help()
+        elif ctx.message.mentions:
+            if len(ctx.message.mentions) > 1:
+                return await ctx.channel.send(
+                    "Please only specific one player!")
+            else:
+                uuid = await self.config.member(ctx.message.mentions[0]).uuid()
+                if uuid:
+                    player = uuid
+                else:
+                    return await ctx.channel.send(
+                        "This user hasn’t registered a Quake Champion name.")
+
+        with ctx.channel.typing():
+            pstats = self.api.get_player_stats(player)
+            match = pstats["matches"].pop()
+            mstats = self.api.get_match_stats(
+                uid=match["id"], name=player
+            )
+            stats = "```\n" + self._get_table(mstats) + "\n```"
+            return await ctx.channel.send(stats)
+    
+    @staticmethod
+    def _get_table(stats):
+        """
+        Small helper method to return a pretty table for
+        the statistics.
+        """
+        headers = [
+            "Name",
+            "Score",
+            "Kills",
+            "Deaths",
+            "K:D",
+            "Damage",
+            "Mega",
+            "Armour",
+            "Pwr Up"
+            ]
+        cols = (
+            "left",
+            "center",
+            "center",
+            "center",
+            "center",
+            "center",
+            "center",
+            "center",
+            "center"
+            )
+
+        if stats["teamScores"]:
+            team0, team1 = [], []
+            for p in stats["battleReportPersonalStatistics"]:
+                table = "team" + str(p["teamIndex"])
+                locals()[table].append([
+                    p["nickname"],
+                    p["score"],
+                    p["kills"],
+                    p["deaths"],
+                    round(p["kills"]/p["deaths"], 1),
+                    p["totalDamage"],
+                    p["megaHealthPickups"],
+                    p["heavyArmorPickups"],
+                    p["powerPickups"]
+                ])
+            team0.sort(key=lambda x: x[1], reverse=True)
+            team1.sort(key=lambda x: x[1], reverse=True)
+            return "\n\n".join(
+                [tabulate(team0,
+                    headers=headers, tablefmt="fancy_grid", colalign=cols),
+                tabulate(team1,
+                    headers=headers, tablefmt="fancy_grid", colalign=cols)])
+
+        table = []
+        for p in stats["battleReportPersonalStatistics"]:
+            table.append([
+                p["nickname"],
+                p["score"],
+                p["kills"],
+                p["deaths"],
+                round(p["kills"]/p["deaths"], 1),
+                p["totalDamage"],
+                p["megaHealthPickups"],
+                p["heavyArmorPickups"],
+                p["powerPickups"]
+            ])
+        table.sort(key=lambda x: x[1], reverse=True)
+
+        return tabulate(table, headers=headers,
+            tablefmt="fancy_grid", colalign=cols)
