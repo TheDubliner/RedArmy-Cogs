@@ -92,13 +92,12 @@ class QuakeStats(commands.Cog):
                         "This user hasn’t registered a Quake Champion name.")
         with ctx.channel.typing():
             stats = self.api.get_player_stats(playername)
+            if stats:
             duelrank = self.api.get_player_rank(
                 stats["playerRatings"]["duel"]["rating"], human=True)
             duetrank = self.api.get_player_rank(
                 stats["playerRatings"]["tdm"]["rating"], human=True)
-            msg = ''
-            if stats:
-                msg += f'**Duel**:\n'
+                msg = f'**Duel**:\n'
                 msg += f'```\n'
                 msg += f'Rating: {stats["playerRatings"]["duel"]["rating"]}' \
                        f' ± {stats["playerRatings"]["duel"]["deviation"]}\n'
