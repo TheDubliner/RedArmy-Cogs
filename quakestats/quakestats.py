@@ -124,6 +124,6 @@ class QuakeStats(commands.Cog):
                 embed.set_footer(text="Quake Stats",
                     icon_url="https://stats.quake.com/fav/favicon-96x96.png")
                 embed.set_image(url="attachment://" + img_name)
-                await ctx.channel.send(file=img, embed=embed)
+                return await ctx.channel.send(file=img, embed=embed)
             else:
-                msg = 'User not found!'
+                return await ctx.channel.send('User not found!')
