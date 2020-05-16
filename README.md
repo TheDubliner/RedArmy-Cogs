@@ -26,8 +26,9 @@ Load installed cogs:
 
 Name | Description
 --- | ---
-[Anno Domini](../master/README.md#anno%20domini) | Play Anno Domini in your channel.
-[Quake Stats](../master/README.md#quake%20stats) | Display Quake Champion stats.
+[Anno Domini](../master/README.md#anno-domini) | Play Anno Domini in your channel.
+[Cobblers](../master/README.md#cobblers) | Play the word game Cobblers in your channel.
+[Quake Stats](../master/README.md#quake-stats) | Display Quake Champion stats.
 
 ## Anno Domini
 
