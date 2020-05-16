@@ -32,15 +32,63 @@ Name | Description
 
 ## Anno Domini
 
-This cog will let you set up and play a game of Anno Domini in your server.
+This cog will let you set up and play a game of _Anno Domini_ in your server.
 
 ### Usage
 
-**`[p]annodomini newgame`**
+**`[p]annodomini newgame [topics]`**
 
-Begin a game of Anno Domini.
+Begin a game of _Anno Domini_ for other players to join using the chosen topics.
 
-**`[p]annodomini newgame`**
+**`[p]annodomini join`**
+
+Join a game of _Anno Domini_ in the channel.
+
+**`[p]annodomini start`**
+
+Start the game of _Anno Domini_ once you have enough players.
+
+**`[p]annodomini topics`**
+
+Get a list of available topics to play.
+
+**`[p]annodomini languages`**
+
+Display a list of supported languages.
+
+**`[p]annodomini language [language]`**
+
+Change the language for the game.
+
+**`[p]annodomini howtoplay`**
+
+Shows the basic game rules.
+
+## Cobblers
+
+This cog allows you to play a classic parlour game based roughly on the board game _Balderdash_.
+
+### Usage
+
+**`[p]cobblers newgame`**
+
+Create a new game which automatically starts after a certain amount of time. Players can join by giving a 👍.
+
+**`[p]cobblers join`**
+
+Join an ongoing game of _Cobblers_ after it has started.
+
+**`[p]cobblers leave`**
+
+Leave an ongoing game of _Cobblers_.
+
+**`[p]cobblerssettings`**
+
+Display/change the game settings (e.g. length of time for answers, voting etc.)
+
+**`[p]cobblers howtoplay`**
+
+Show the basic game rules.
 
 ## Quake Stats
 
