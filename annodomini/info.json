@@ -1,0 +1,9 @@
+{
+    "author" : "TheDubliner",
+    "install_msg" : "You’ve installed Anno Domini. Have fun but be careful!",
+    "name" : "AnnoDomini",
+    "short" : "Experimental version of Anno Domini.",
+    "requirements" : [],
+    "description" : "Experimental",
+    "tags" : ["Games", "Fun"]
+}
