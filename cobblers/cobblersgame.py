@@ -255,20 +255,15 @@ class CobblersGame:
         for reaction in message.reactions:
             if str(reaction.emoji) in symbols:
                 async for voter in reaction.users():
-                    self.log.warning(f"voter: {voter}")
                     if voter not in self.players or voter == self.ctx.bot \
                         or voter in voted:
-                        self.log.warning("voter blocked")
                         continue  # TODO: potentially allow foreign votes?
                     votee = self.answers[symbols.index(str(reaction))][0]
-                    self.log.warning(f"votee: {votee}")
                     if votee is False:
-                        self.log.warning(f"{voter} voted for False")
                         votes[voter] += 2  # 2 pts for correct answer
                         voted.append(voter)
                         continue
                     if voter != votee:
-                        self.log.warning(f"{voter} voted for {votee}")
                         votes[votee] += 1  # 1 pt for being voted for
                         voted.append(voter)
         return votes
