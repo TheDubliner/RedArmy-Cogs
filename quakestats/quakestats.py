@@ -1,3 +1,4 @@
+import asyncio
 import requests
 import urllib.parse
 
@@ -90,7 +91,8 @@ class QuakeStats(commands.Cog):
                 else:
                     return await ctx.channel.send(
                         "This user hasn’t registered a Quake Champion name.")
-        with ctx.channel.typing():
+        async with ctx.channel.typing():
+            await asyncio.sleep(1)
             stats = self.api.get_player_stats(playername)
             if stats:
                 duelrank = self.api.get_player_rank(
@@ -150,7 +152,8 @@ class QuakeStats(commands.Cog):
                     return await ctx.channel.send(
                         "This user hasn’t registered a Quake Champion name.")
 
-        with ctx.channel.typing():
+        async with ctx.channel.typing():
+            await asyncio.sleep(1)
             pstats = self.api.get_player_stats(player)
             match = pstats["matches"].pop()
             mstats = self.api.get_match_stats(
