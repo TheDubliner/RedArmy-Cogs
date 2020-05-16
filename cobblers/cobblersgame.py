@@ -206,9 +206,11 @@ class CobblersGame:
             await self.updateboard(embed)
             if votes:
                 self.scores += votes
-                msg = "**Scores in that round:**\n"
-                for score in votes.most_common():
-                    msg += f"{score[0].name}: {score[1]}\n"
+            if self.scores:
+                msg = "**Scores after that round:**\n"
+                for score in self.scores.most_common():
+                    msg += (f"{score[0].name}: {score[1]} "
+                            f"{'(+'+f'{votes[score[0]]}'})\n")
             else:
                 msg = "Nobody scored anything that round!"
             await self.ctx.channel.send(msg)
