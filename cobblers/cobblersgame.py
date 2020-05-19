@@ -21,7 +21,7 @@ from redbot.core import (
 EXPLANATIONS = {
     "Films": "Send me your synopsis of this film per private message!",
     "Words": "Send me your definition of this word per private message!",
-    "Film Synopses": "Send me your title for this film per private message!",
+    "Film Synopses": "Send me your title for this film per private message (include the year in brackets)!",
     "Dates": "Send me what happened on this day per private message!",
     "Laws": "Send me the end of this law per private message!"
 }
