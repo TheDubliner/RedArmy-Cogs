@@ -295,7 +295,12 @@ class CobblersGame:
         for answer in answers:
             if answer is asyncio.TimeoutError:
                 continue
-            self.answers.append((answer.author, answer.content))
+            self.answers.append((
+                answer.author,
+                answer.content[:1000]
+                if len(answer.content) > 1000
+                else answer.content
+                ))
         return True
 
     async def send(self):
