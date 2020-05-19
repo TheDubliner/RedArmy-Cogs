@@ -303,7 +303,7 @@ class CobblersGame:
             await self.ctx.send(page)
         self.msg = ''
 
-    async def get_questions(self) -> list:
+    async def get_questions(self, questions: int = 100) -> list:
         """
         Fills the list with questions for the game.
 
@@ -332,9 +332,10 @@ class CobblersGame:
                     )
                     continue
                 buckets[row['topic']].append(row)
+        no_of_qs_per_cat = round(questions / len(buckets))
         for bucket in buckets.values():
             random.shuffle(bucket)
-            self.questions.extend(bucket[:20])
+            self.questions.extend(bucket[:no_of_qs_per_cat])
         del buckets
         random.shuffle(self.questions)
     
