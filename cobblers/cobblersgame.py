@@ -18,6 +18,7 @@ from redbot.core import (
     data_manager
 )
 
+CATEGORIES = ["Films", "Words", "Dates", "Laws", "Film Synopses"]
 EXPLANATIONS = {
     "Films": "Send me your synopsis of this film per private message!",
     "Words": "Send me your definition of this word per private message!",
@@ -318,10 +319,11 @@ class CobblersGame:
                                    f"data-{language}.csv")
         with open(sourcefile, "r", encoding="utf8") as source:  # TODO: detect encoding
             reader = csv.DictReader(source, delimiter=",")
+            buckets = {category: [] for category in CATEGORIES}
             for row in reader:
                 # randomly add half films backwards
                 if row['topic'] == 'Films' and random.choice([True, False]):
-                    self.questions.append(
+                    buckets['Film Synopses'].append(
                         {
                             'topic': 'Film Synopses',
                             'name': row['solution'],
@@ -329,7 +331,11 @@ class CobblersGame:
                         }
                     )
                     continue
-                self.questions.append(row)
+                buckets[row['topic']].append(row)
+        for bucket in buckets.values():
+            random.shuffle(bucket)
+            self.questions.extend(bucket[:20])
+        del buckets
         random.shuffle(self.questions)
     
     async def update_scores(self):
