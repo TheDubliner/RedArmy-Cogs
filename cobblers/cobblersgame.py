@@ -219,7 +219,7 @@ class CobblersGame:
 
         # TODO: no support for tied winners
         msg = (f"**{self.scores.most_common(1)[0].name} is the winner!**\n" 
-               f"Final scores:\n")
+               f"__Final scores:__\n")
         for score in votes.most_common():
             msg += f"{score[0].name}: {score[1]}\n"
         await self.ctx.channel.send(msg)
