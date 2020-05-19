@@ -175,8 +175,9 @@ class CobblersGame:
             try:
                 self.question = self.questions.pop()
             except IndexError:
-                self.ctx.send("No more questions!")
-                break
+                # add another 20 questions if 100 somehow weren’t enough
+                self.questions = self.get_questions(20)
+                self.question = self.questions.pop()
 
             embed = discord.Embed(
                 colour=discord.Colour.dark_blue(),
