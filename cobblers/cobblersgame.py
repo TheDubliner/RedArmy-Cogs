@@ -270,6 +270,21 @@ class CobblersGame:
                         voted.append(voter)
         return votes
 
+    async def _answer_helper(self, player: discord.User, delay: float):
+        """
+        Helper method to return player answers
+        """
+        try:
+            answer = await self.ctx.bot.wait_for(
+                "message", check=lambda m: (
+                    isinstance(m.channel, PrivateChannel) and
+                    m.author.id == player.id
+                ), timeout=delay
+            )
+            return answer
+        except asyncio.TimeoutError:
+            raise asyncio.TimeoutError
+
     async def wait_for_answers(self, delay: float):
         """Wait for answers from players.
 
@@ -284,16 +299,11 @@ class CobblersGame:
             `True` if the session wasn’t interrupted.
         """
         answers = await asyncio.gather(
-            *[self.ctx.bot.wait_for(
-                "message", check=lambda m: (
-                    isinstance(m.channel, PrivateChannel) and
-                    m.author.id == player.id
-                ), timeout=delay
-            ) for player in self.players],
+            *[self._answer_helper(player, delay) for player in self.players],
             return_exceptions=True
         )
         for answer in answers:
-            if answer is asyncio.TimeoutError:
+            if type(answer) is asyncio.TimeoutError:
                 continue
             self.answers.append((
                 answer.author,
