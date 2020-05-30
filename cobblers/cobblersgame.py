@@ -359,13 +359,14 @@ class CobblersGame:
         """
         Update the scores at the end of the game.
         """
-        for player in self.scores:
-            stats = self.cog.config.member(player.member).all()
+        for player, score in self.scores.items():
+            stats = await self.cog.config.member(player).all()
             stats["games"] += 1
+            stats["points"] += score
             # FIXME: event of a tie
             if player == self.scores.most_common(1)[0][0]:
                 stats["wins"] += 1
-            self.cog.config.member(player.member).set(stats)
+            await self.cog.config.member(player).set(stats)
 
     async def updateboard(self, board_embed):
         await self.board_embed.edit(embed=board_embed)
