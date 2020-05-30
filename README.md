@@ -82,6 +82,10 @@ Join an ongoing game of _Cobblers_ after it has started.
 
 Leave an ongoing game of _Cobblers_.
 
+**`[p]cobblers leaderboard`**
+
+Show the top ten players for the guild.
+
 **`[p]cobblerssettings`**
 
 Display/change the game settings (e.g. length of time for answers, voting etc.)

@@ -15,7 +15,11 @@ from redbot.core import (
     commands,
     data_manager
 )
-from redbot.core.utils.chat_formatting import humanize_list
+from redbot.core.utils.chat_formatting import (
+    humanize_list,
+    pagify,
+    box
+)
 
 from .cobblersgame import (
     CobblersGame,
@@ -295,6 +299,102 @@ class Cobblers(commands.Cog):
             except ValueError:
                 return f"Oops! Couldn’t remove {ctx.author.name} from the game."
         return await ctx.channel.send("You don’t seem to be in a game!")
+    
+    @cobblers.command(autohelp=False)
+    async def leaderboard(self, ctx: commands.Context):
+        """Leaderboard for _Cobblers_.
+        Defaults to the top 10 of this server, sorted by total wins.
+        """
+        guild = ctx.guild
+        data = await self.config.all_members(guild)
+        data = {guild.get_member(u): d for u, d in data.items()}
+        data.pop(None, None)  # remove members who aren’t in the guild
+        await self.send_leaderboard(ctx, data, "wins", 10)
+
+    async def send_leaderboard(self,
+        ctx: commands.Context, data: dict, key: str, top: int):
+        """
+        Send the leaderboard from the given data.
+
+        Parameters
+        ----------
+        ctx : `commands.Context`
+            Context to send the leaderboard to.
+        data : `dict`
+            Data for the leaderboard. Must map `discord.Member` ->
+            `dict`.
+        key : `str`
+            Field to sort the data by.
+        top : `int`
+            Number of members to display on the leaderboard.
+
+        Returns
+        -------
+        `list` of `discord.Message`
+            Sent leaderboard messages.
+        """
+        if not data:
+            await ctx.send("There are no scores on record!")
+            return
+        leaderboard = self._get_leaderboard(data, key, top)
+        ret = []
+        for page in pagify(leaderboard, shorten_by=10):
+            ret.append(await ctx.send(box(page, lang="py")))
+        return ret
+
+    @staticmethod
+    def _get_leaderboard(data: dict, key: str, top: int):
+        # Mix in average score
+        for member, stats in data.items():
+            if stats["games"] != 0:
+                stats["average_score"] = stats["points"] / stats["games"]
+            else:
+                stats["average_score"] = 0.0
+        # Sort by reverse order of priority
+        priority = ["average_score", "points", "wins", "games"]
+        try:
+            priority.remove(key)
+        except ValueError:
+            raise ValueError(f"{key} is not a valid key.")
+        # Put key last in reverse priority
+        priority.append(key)
+        items = data.items()
+        for key in priority:
+            items = sorted(items, key=lambda t: t[1][key], reverse=True)
+        max_name_len = max(map(lambda m: len(str(m)), data.keys()))
+        # Headers
+        headers = (
+            "Rank",
+            "Member" + " " * (max_name_len - 6),
+            "Wins",
+            "Games Played",
+            "Total Score",
+            "Average Score",
+        )
+        lines = [" | ".join(headers), " | ".join(("-" * len(h) for h in headers))]
+        # Header underlines
+        for rank, tup in enumerate(items, 1):
+            member, m_data = tup
+            # Align fields to header width
+            fields = tuple(
+                map(
+                    str,
+                    (
+                        rank,
+                        member,
+                        m_data["wins"],
+                        m_data["games"],
+                        m_data["points"],
+                        round(m_data["average_score"], 2),
+                    ),
+                )
+            )
+            padding = [" " * (len(h) - len(f)) for h, f in zip(headers, fields)]
+            fields = tuple(f + padding[i] for i, f in enumerate(fields))
+            lines.append(" | ".join(fields).format(member=member, **m_data))
+            if rank == top:
+                break
+        return "\n".join(lines)
     
     @cobblers.command()
     async def howtoplay(self, ctx: commands.Context):
