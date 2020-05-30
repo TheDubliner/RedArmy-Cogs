@@ -74,6 +74,10 @@ This cog allows you to play a classic parlour game based roughly on the board ga
 
 Create a new game which automatically starts after a certain amount of time. Players can join by giving a 👍.
 
+**`[p]cobblers stop`**
+
+Stop the currently running game in this channel without scoring.
+
 **`[p]cobblers join`**
 
 Join an ongoing game of _Cobblers_ after it has started.
@@ -88,7 +92,7 @@ Show the top ten players for the guild.
 
 **`[p]cobblerssettings`**
 
-Display/change the game settings (e.g. length of time for answers, voting etc.)
+Display/change the game settings (e.g. length of time for setting up, writing answers, voting etc.)
 
 **`[p]cobblers howtoplay`**
 
