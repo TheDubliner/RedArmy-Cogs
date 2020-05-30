@@ -70,7 +70,7 @@ This cog allows you to play a classic parlour game based roughly on the board ga
 
 ### Usage
 
-**`[p]cobblers newgame`**
+**`[p]cobblers start`**
 
 Create a new game which automatically starts after a certain amount of time. Players can join by giving a 👍.
 

@@ -198,7 +198,7 @@ class Cobblers(commands.Cog):
 
     @cobblers.command()
     @commands.guild_only()
-    async def newgame(self, ctx: commands.Context, *topics: str):
+    async def start(self, ctx: commands.Context, *topics: str):
         """
         Create a new game of Cobblers.
         """
