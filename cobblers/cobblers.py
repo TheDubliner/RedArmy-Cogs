@@ -54,7 +54,7 @@ class Cobblers(commands.Cog):
 
     @commands.guild_only()
     @commands.group(aliases=["cob"], invoke_without_command=True)
-    async def cobblers(self, ctx, _):
+    async def cobblers(self, ctx: commands.Context, _):
         """
         Command group.
         """
@@ -69,7 +69,7 @@ class Cobblers(commands.Cog):
     @commands.guild_only()
     @checks.guildowner()
     @commands.group(aliases=["cobset"])
-    async def cobblerssettings(self, ctx):
+    async def cobblerssettings(self, ctx: commands.Context):
         """Config options for Cobblers."""
         if ctx.invoked_subcommand is None:
             cfg = await self.config.guild(ctx.guild).all()
@@ -84,7 +84,7 @@ class Cobblers(commands.Cog):
             await ctx.send(f'```py\n{msg}```')
 
     @cobblerssettings.command()
-    async def language(self, ctx, value: str=None):
+    async def language(self, ctx: commands.Context, value: str=None):
         """
         Set the language for the game.
         
@@ -105,7 +105,7 @@ class Cobblers(commands.Cog):
                                f'from: {humanize_list(langs)}')
 
     @cobblerssettings.command()
-    async def winscore(self, ctx, value: int=None):
+    async def winscore(self, ctx: commands.Context, value: int=None):
         """
         Set the winning score for the game.
         
@@ -121,7 +121,7 @@ class Cobblers(commands.Cog):
                            f'to win to {value}.')
 
     @cobblerssettings.command()
-    async def setuptime(self, ctx, value: float=None):
+    async def setuptime(self, ctx: commands.Context, value: float=None):
         """
         Set the time between setting up and starting a game.
         
@@ -137,7 +137,7 @@ class Cobblers(commands.Cog):
                            f'seconds.')
 
     @cobblerssettings.command()
-    async def answertime(self, ctx, value: float=None):
+    async def answertime(self, ctx: commands.Context, value: float=None):
         """
         Set the time allowed for players to submit answers.
         
@@ -154,7 +154,7 @@ class Cobblers(commands.Cog):
                            f'submitting answers to {value} seconds.')
 
     @cobblerssettings.command()
-    async def votetime(self, ctx, value: float=None):
+    async def votetime(self, ctx: commands.Context, value: float=None):
         """
         Set the time allowed for players to vote on the answers.
         
@@ -171,7 +171,7 @@ class Cobblers(commands.Cog):
                            f'{value} seconds.')
 
     @cobblerssettings.command()
-    async def mentions(self, ctx, value: bool=None):
+    async def mentions(self, ctx: commands.Context, value: bool=None):
         """
         Set whether players should be mentioned.
 
@@ -241,7 +241,7 @@ class Cobblers(commands.Cog):
     @commands.guild_only()
     @checks.guildowner()
     @cobblers.command()
-    async def stop(self, ctx):
+    async def stop(self, ctx: commands.Context):
         """
         Stop the game of Cobblers in this channel.
         """
@@ -256,7 +256,7 @@ class Cobblers(commands.Cog):
 
     @cobblers.command()
     @commands.guild_only()
-    async def join(self, ctx):
+    async def join(self, ctx: commands.Context):
         """
         Join a running game of Cobblers.
         """
@@ -283,7 +283,7 @@ class Cobblers(commands.Cog):
         await ctx.channel.send(f"No game found to join. Why not start your own?")
 
     @cobblers.command()
-    async def leave(self, ctx):
+    async def leave(self, ctx: commands.Context):
         """
         Leave your current game of Cobblers.
         """
@@ -297,7 +297,7 @@ class Cobblers(commands.Cog):
         return await ctx.channel.send("You don’t seem to be in a game!")
     
     @cobblers.command()
-    async def howtoplay(self, ctx):
+    async def howtoplay(self, ctx: commands.Context):
         """
         Instructions on how to play the game.
         """
@@ -355,7 +355,7 @@ class Cobblers(commands.Cog):
         await ctx.channel.send(embed=embed)
 
     @cobblers.command()
-    async def about(self, ctx):
+    async def about(self, ctx: commands.Context):
         """
         Displays information about this cog.
         """
@@ -363,7 +363,7 @@ class Cobblers(commands.Cog):
             "This cog is based on the board game Balderdash."
         )
 
-    async def _get_topics(self, ctx) -> list:
+    async def _get_topics(self, ctx: commands.Context) -> list:
         """
         Returns a list of topics available for the cog language.
         """
