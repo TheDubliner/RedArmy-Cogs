@@ -60,7 +60,7 @@ class AnnoDomini(commands.Cog):
                    f"**{prefix[0]}{self.name} newgame** or **{prefix[0]}help "
                    f"{self.name}** for more options.")
         await ctx.send(message)
-    
+
     @annodomini.command()
     @commands.guild_only()
     async def newgame(self, ctx: commands.Context, *topics: str):
@@ -101,7 +101,7 @@ class AnnoDomini(commands.Cog):
                 f"Topics not recognised. Type **{prefix[0]}{self.name} "
                 f"topics** to display the available list."
             )
-    
+
     @annodomini.command()
     async def topics(self, ctx: commands.Context):
         """
@@ -111,7 +111,7 @@ class AnnoDomini(commands.Cog):
         return await ctx.channel.send(
             f"Available topics: {', '.join(avail_topics)}"
         )
-    
+
     @annodomini.command()
     async def languages(self, ctx: commands.Context):
         """
@@ -181,7 +181,7 @@ class AnnoDomini(commands.Cog):
                 f"You can’t play a game against yourself!")
         await ctx.channel.send(f"Starting game...")
         await game.setup()
-        
+
     @annodomini.command()
     async def addbot(self, *, ctx):
         """
@@ -211,7 +211,7 @@ class AnnoDomini(commands.Cog):
         """
         # TODO
         await ctx.channel.send("Command not yet implemented.")
-    
+
     @annodomini.command()
     async def howtoplay(self, ctx):
         """
@@ -306,7 +306,7 @@ class AnnoDomini(commands.Cog):
         with open(sourcefile, "r", encoding="utf8") as source:  # TODO: detect encoding
             reader = csv.DictReader(source, delimiter=",")
             return {row["topic"] for row in reader}
-    
+
     def _get_languages(self) -> list:
         """
         Returns a list of languages available for the cog.
@@ -325,7 +325,7 @@ class AnnoDomini(commands.Cog):
         for game in self.games:
             if game.ctx.channel == ctx.channel:
                 return game
-            
+
         return next(
             (game for game in self.games if game.ctx.channel == ctx.channel and game.live is False), None
         )
@@ -339,7 +339,7 @@ class AnnoDomini(commands.Cog):
                 if player.member.id == user.id:
                     return game
         return None
-    
+
     def cog_unload(self):
         return [game._task.cancel() for game in self.games]
 

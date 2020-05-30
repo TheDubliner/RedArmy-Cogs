@@ -73,7 +73,7 @@ class AnnoDominiCard:
         self.name = name
         self.desc = desc
         self.topic = topic
-    
+
     def __lt__(self, x):
         """
         Date A is earlier than date B if it both started and
@@ -100,7 +100,7 @@ class AnnoDominiCard:
     @property
     def start(self):
         return self._start
-    
+
     @start.setter
     def start(self, value):
         self._start = self._parse_date(value)
@@ -187,7 +187,7 @@ class AnnoDominiGame:
         self.msg = ''
         self._last_play = int(time.time())  # TODO: integrate this?
         self._task = None
-    
+
     def _generate_id(self):
         """
         Generate a unique game id for running multiple games.
@@ -199,7 +199,7 @@ class AnnoDominiGame:
             gid = random.randint(1000, 9999)
             if gid not in games:
                 return gid
-    
+
     async def send_error(self):
         """
         Sends a message to the channel after an error.
@@ -248,7 +248,7 @@ class AnnoDominiGame:
         self.newround()
         self._task = asyncio.create_task(self.run())
         self._task.add_done_callback(self.error_callback)
-    
+
     def validate_cmd(self, m):
         """
         Check on messages to see whether they are valid commands.
@@ -534,7 +534,7 @@ class AnnoDominiGame:
         # TODO: factor this out
         await self.board_embed.edit(embed=board_embed)
         return
-    
+
     async def update_scores(self):
         """
         Run after a completed game to update players’ stats.

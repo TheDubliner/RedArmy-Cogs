@@ -91,7 +91,7 @@ class Cobblers(commands.Cog):
     async def language(self, ctx: commands.Context, value: str=None):
         """
         Set the language for the game.
-        
+
         Defaults to en.
         This value is server specific.
         """
@@ -112,7 +112,7 @@ class Cobblers(commands.Cog):
     async def winscore(self, ctx: commands.Context, value: int=None):
         """
         Set the winning score for the game.
-        
+
         Defaults to 26.
         This value is server specific.
         """
@@ -128,7 +128,7 @@ class Cobblers(commands.Cog):
     async def setuptime(self, ctx: commands.Context, value: float=None):
         """
         Set the time between setting up and starting a game.
-        
+
         Defaults to 2 minutes.
         This value is server specific.
         """
@@ -144,7 +144,7 @@ class Cobblers(commands.Cog):
     async def answertime(self, ctx: commands.Context, value: float=None):
         """
         Set the time allowed for players to submit answers.
-        
+
         Defaults to 5 minutes.
         This value is server specific.
         """
@@ -161,7 +161,7 @@ class Cobblers(commands.Cog):
     async def votetime(self, ctx: commands.Context, value: float=None):
         """
         Set the time allowed for players to vote on the answers.
-        
+
         Defaults to 2 minutes.
         This value is server specific.
         """
@@ -280,7 +280,7 @@ class Cobblers(commands.Cog):
             except ValueError:
                 return f"Oops! Couldn’t remove {ctx.author.name} from the game."
         return await ctx.channel.send("You don’t seem to be in a game!")
-    
+
     @cobblers.command(autohelp=False)
     async def leaderboard(self, ctx: commands.Context):
         """Leaderboard for _Cobblers_.
@@ -376,7 +376,7 @@ class Cobblers(commands.Cog):
             if rank == top:
                 break
         return "\n".join(lines)
-    
+
     @cobblers.command()
     async def howtoplay(self, ctx: commands.Context):
         """
@@ -454,7 +454,7 @@ class Cobblers(commands.Cog):
         with open(sourcefile, "r", encoding="utf8") as source:  # TODO: detect encoding
             reader = csv.DictReader(source, delimiter=",")
             return {row["topic"] for row in reader}
-    
+
     def _get_languages(self) -> list:
         """
         Returns a list of languages available for the cog.
@@ -473,7 +473,7 @@ class Cobblers(commands.Cog):
         for game in self.games:
             if game.ctx.channel == ctx.channel:
                 return game
-            
+
         return next(
             (game for game in self.games if game.ctx.channel == ctx.channel and game.live is False), None
         )
@@ -487,7 +487,7 @@ class Cobblers(commands.Cog):
                 if player.id == user.id:
                     return game
         return None
-    
+
     def cog_unload(self):
         return [game._task.cancel() for game in self.games]
 

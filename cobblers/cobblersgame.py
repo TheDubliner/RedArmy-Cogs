@@ -74,7 +74,7 @@ class CobblersGame:
         self.starttime = int(time.time())
         self.players = []
         self.questions = []
-        self.question = None  # correct question
+        self.question = None  # current question
         self.answers = []
         self.board_embed = None
         self.round_no = 0
@@ -95,7 +95,7 @@ class CobblersGame:
             gid = random.randint(1000, 9999)
             if gid not in games:
                 return gid
-    
+
     async def send_error(self):
         """
         Sends a message to the channel after an error.
@@ -173,7 +173,7 @@ class CobblersGame:
         if any(score >= win_score for score in self.scores.values()):
             return True
         return False
-    
+
     async def new_round(self):
         """
         Sets up a new round.
@@ -376,7 +376,7 @@ class CobblersGame:
             self.questions.extend(bucket[:no_of_qs_per_cat])
         del buckets
         random.shuffle(self.questions)
-    
+
     async def update_scores(self):
         """
         Update the scores at the end of the game.

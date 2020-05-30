@@ -41,7 +41,7 @@ class QuakeStats(commands.Cog):
         # prefix = await ctx.bot.get_valid_prefixes()
         message = f"Still very much experimental!"
         await ctx.send(message)
-    
+
     @quakestats.command()
     @commands.guild_only()
     async def setname(self, ctx, *, playername=None):
@@ -68,7 +68,7 @@ class QuakeStats(commands.Cog):
             f"It appears you haven’t registered your player name "
             f"yet. Type **{prefix[0]}quakestats setname <name>** "
             f"to do so.")
-    
+
     @quakestats.command()
     async def player(self, ctx : commands.Context, *, playername : str = None):
         """
@@ -161,7 +161,7 @@ class QuakeStats(commands.Cog):
             )
             stats = "```\n" + self._get_table(mstats) + "\n```"
             return await ctx.channel.send(stats)
-    
+
     @staticmethod
     def _get_table(stats):
         """

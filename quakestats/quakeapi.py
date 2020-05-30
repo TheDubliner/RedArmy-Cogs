@@ -64,7 +64,7 @@ class QuakeWrapper():
     ----------
     parent : `commands.Cog`
         Controlling cog.
-    
+
     Attributes
     ----------
     baseurl : `str`
