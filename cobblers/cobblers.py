@@ -210,7 +210,6 @@ class Cobblers(commands.Cog):
                 f"Type **{prefix[0]}{self.name} leave** to leave that game."
             )
 
-        countdown = await self.config.guild(ctx.guild).setuptime()
         await ctx.channel.send(
             f"{ctx.author.mention} is starting a new game of _Cobblers_!"
             )
@@ -218,29 +217,11 @@ class Cobblers(commands.Cog):
             newgame = CobblersGame(self, ctx)
             newgame.players.append(ctx.author)
             self.games.append(newgame)
+            await newgame.setup()
         except TooManyGamesException:
             return await ctx.channel.send(
                 "Too many games in progress!"
             )
-
-        message = await ctx.message.channel.send(
-            f"Join the game now by giving your 👍\n"
-            f"The game will start in {int(countdown)} seconds!")
-        await message.add_reaction("👍")
-        await asyncio.sleep(countdown)
-        message = await ctx.channel.fetch_message(message.id)
-        for reaction in message.reactions:
-            if str(reaction) == "👍":
-                async for user in reaction.users():
-                    if user not in newgame.players and user != self.bot.user \
-                        and len(newgame.players) < self.maxplayers:
-                        newgame.players.append(user)
-
-        player_names = [player.display_name for player in newgame.players]
-        await ctx.channel.send(
-            f"Starting game with {humanize_list(player_names)}"
-        )
-        await newgame.setup()
 
     @commands.guild_only()
     @checks.guildowner()

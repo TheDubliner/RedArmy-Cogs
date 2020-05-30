@@ -12,7 +12,7 @@ from pathlib import Path
 import discord
 from discord.abc import PrivateChannel
 
-from redbot.core.utils.chat_formatting import pagify
+from redbot.core.utils.chat_formatting import pagify, humanize_list
 from redbot.core.utils.menus import start_adding_reactions
 from redbot.core import (
     data_manager
@@ -134,10 +134,32 @@ class CobblersGame:
         except ValueError:
             pass
 
+    async def get_players(self):
+        countdown = await self.cog.config.guild(self.ctx.guild).setuptime()
+        message = await self.ctx.message.channel.send(
+            f"Join the game now by giving your 👍\n"
+            f"The game will start in {int(countdown)} seconds!")
+        await message.add_reaction("👍")
+        await asyncio.sleep(countdown)
+        message = await self.ctx.channel.fetch_message(message.id)
+        for reaction in message.reactions:
+            if str(reaction) == "👍":
+                async for user in reaction.users():
+                    if user not in self.players and user != self.cog.bot.user \
+                        and len(self.players) < self.cog.maxplayers:
+                        self.players.append(user)
+
+        player_names = [player.display_name for player in self.players]
+        await self.ctx.channel.send(
+            f"Starting game with {humanize_list(player_names)}"
+        )
+
     async def setup(self):
         """
         Initialises the game.
         """
+        self._task = asyncio.create_task(self.get_players())
+        await self._task
         await self.get_questions()
         self.live = True
         self._task = asyncio.create_task(self.run())
