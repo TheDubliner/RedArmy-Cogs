@@ -65,7 +65,7 @@ class Cobblers(commands.Cog):
         if ctx.invoked_subcommand is None:
             prefix = await ctx.bot.get_valid_prefixes()
             message = (
-                f"Fancy a game of Cobblers? Type **{prefix[0]}{self.name} "
+                f"Fancy a game of _Cobblers_? Type **{prefix[0]}{self.name} "
                 f"newgame** or **{prefix[0]}help {self.name}** for more "
                 f"options.")
             await ctx.send(message)
@@ -74,7 +74,7 @@ class Cobblers(commands.Cog):
     @checks.guildowner()
     @commands.group(aliases=["cobset"])
     async def cobblerssettings(self, ctx: commands.Context):
-        """Config options for Cobblers."""
+        """Config options for _Cobblers_."""
         if ctx.invoked_subcommand is None:
             cfg = await self.config.guild(ctx.guild).all()
             msg = (
@@ -200,7 +200,7 @@ class Cobblers(commands.Cog):
     @commands.guild_only()
     async def start(self, ctx: commands.Context, *topics: str):
         """
-        Create a new game of Cobblers.
+        Create a new game of _Cobblers_ which starts after a short time.
         """
         prefix = await ctx.bot.get_valid_prefixes()
         already_in_game = self._get_user_game(ctx.author)
@@ -212,7 +212,7 @@ class Cobblers(commands.Cog):
 
         countdown = await self.config.guild(ctx.guild).setuptime()
         await ctx.channel.send(
-            f"{ctx.author.mention} is starting a new game of Cobblers!"
+            f"{ctx.author.mention} is starting a new game of _Cobblers_!"
             )
         try:
             newgame = CobblersGame(self, ctx)
@@ -247,7 +247,7 @@ class Cobblers(commands.Cog):
     @cobblers.command()
     async def stop(self, ctx: commands.Context):
         """
-        Stop the game of Cobblers in this channel.
+        Stop the game of _Cobblers_ in this channel.
         """
         wasGame = False
         for game in [g for g in self.games if g.ctx.channel == ctx.channel]:
@@ -262,7 +262,7 @@ class Cobblers(commands.Cog):
     @commands.guild_only()
     async def join(self, ctx: commands.Context):
         """
-        Join a running game of Cobblers.
+        Join a running game of _Cobblers_.
         """
         # first check if user is already in a game
         already_in_game = self._get_user_game(ctx.author)
@@ -289,7 +289,7 @@ class Cobblers(commands.Cog):
     @cobblers.command()
     async def leave(self, ctx: commands.Context):
         """
-        Leave your current game of Cobblers.
+        Leave your current game of _Cobblers_.
         """
         playing_in_game = self._get_user_game(ctx.author)
         if playing_in_game:
