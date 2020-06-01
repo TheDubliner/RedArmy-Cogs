@@ -247,11 +247,12 @@ class Cobblers(commands.Cog):
         """
         Stop the game of _Cobblers_ in this channel.
         """
-        wasGame = False
+        game_stopped = False
         for game in [g for g in self.games if g.ctx.channel == ctx.channel]:
             game._task.cancel()
-            wasGame = True
-        if wasGame:  # prevents multiple messages if more than one game exists
+            self.games.remove(game)
+            game_stopped = True
+        if game_stopped:  # prevents multiple messages if more than one game exists
             await ctx.send('The game was stopped successfully.')
         else:
             await ctx.send('There is currently no game in this channel.')
