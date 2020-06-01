@@ -121,9 +121,13 @@ class Cobblers(commands.Cog):
             score = await self.config.guild(ctx.guild).winningscore()
             await ctx.send(f'The current score required to win is {score}.')
         else:
-            await self.config.guild(ctx.guild).winningscore.set(value)
-            await ctx.send(f'You have now changed the score required '
-                           f'to win to {value}.')
+            value = self._return_value(value, int, 5, 100)
+            if value:
+                await self.config.guild(ctx.guild).winningscore.set(value)
+                await ctx.send(f'You have now changed the score required '
+                               f'to win to {value}.')
+            else:
+                await ctx.send(f'Please enter a value between 5 and 100.')
 
     @cobblerssettings.command()
     async def setuptime(self, ctx: commands.Context, value: float=None):
@@ -137,9 +141,13 @@ class Cobblers(commands.Cog):
             time = await self.config.guild(ctx.guild).setuptime()
             await ctx.send(f'The current setup time is {time} seconds.')
         else:
-            await self.config.guild(ctx.guild).setuptime.set(value)
-            await ctx.send(f'You have now changed the setup time to {value} '
-                           f'seconds.')
+            value = self._return_value(value, float, 5, 300)
+            if value:
+                await self.config.guild(ctx.guild).setuptime.set(value)
+                await ctx.send(f'You have now changed the setup time to {value} '
+                            f'seconds.')
+            else:
+                await ctx.send(f'Please enter a value between 5 and 300.')
 
     @cobblerssettings.command()
     async def answertime(self, ctx: commands.Context, value: float=None):
@@ -154,9 +162,13 @@ class Cobblers(commands.Cog):
             await ctx.send(f'The current time allowed to submit answers is '
                            f'{time} seconds.')
         else:
-            await self.config.guild(ctx.guild).answersdelay.set(value)
-            await ctx.send(f'You have now changed the time allowed for '
-                           f'submitting answers to {value} seconds.')
+            value = self._return_value(value, float, 30, 600)
+            if value:
+                await self.config.guild(ctx.guild).answersdelay.set(value)
+                await ctx.send(f'You have now changed the time allowed for '
+                            f'submitting answers to {value} seconds.')
+            else:
+                await ctx.send(f'Please enter a value between 30 and 600.')
 
     @cobblerssettings.command()
     async def votetime(self, ctx: commands.Context, value: float=None):
@@ -171,9 +183,13 @@ class Cobblers(commands.Cog):
             await ctx.send(f'The current time allowed for players to vote '
                            f'is {time} seconds.')
         else:
-            await self.config.guild(ctx.guild).votingdelay.set(value)
-            await ctx.send(f'You have now changed the voting time to '
-                           f'{value} seconds.')
+            value = self._return_value(value, float, 10, 300)
+            if value:
+                await self.config.guild(ctx.guild).votingdelay.set(value)
+                await ctx.send(f'You have now changed the voting time to '
+                            f'{value} seconds.')
+            else:
+                await ctx.send(f'Please enter a value between 10 and 300.')
 
     @cobblerssettings.command()
     async def mentions(self, ctx: commands.Context, value: bool=None):
@@ -488,6 +504,21 @@ class Cobblers(commands.Cog):
                 if player.id == user.id:
                     return game
         return None
+
+    @staticmethod
+    def _return_value(val, type, min, max):
+        """
+        Helper method to return a valid settings argument.
+        """
+        try:
+            val = abs(type(val))
+            if val < type(min):
+                return min
+            if val > type(max):
+                return max
+            return val
+        except ValueError:
+            return None
 
     def cog_unload(self):
         return [game._task.cancel() for game in self.games]
