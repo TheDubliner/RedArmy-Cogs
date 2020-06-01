@@ -442,7 +442,7 @@ class Cobblers(commands.Cog):
         Displays information about this cog.
         """
         await ctx.send(
-            "This cog is based on the board game Balderdash."
+            "This cog is based on the board game _Balderdash_."
         )
 
     async def _get_topics(self, ctx: commands.Context) -> list:
