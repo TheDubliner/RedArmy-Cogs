@@ -239,14 +239,39 @@ class CobblersGame:
                 msg = "Nobody scored anything that round!"
             await self.ctx.channel.send(msg)
 
-        # TODO: no support for tied winners
-        msg = (f"**{self.scores.most_common(1)[0][0].name} is the winner!**\n" 
-               f"__Final scores:__\n")
+        winners = self.get_winners()
+        if len(winners) == 1:
+            msg = (f"**{winners[0].name} is the winner!**\n")
+        else:
+            msg = (f"**{humanize_list([winner.name for winner in winners])} "
+                   "are the winners!**\n")
+        msg += "__Final scores:__\n"
         for score in votes.most_common():
             msg += f"{score[0].name}: {score[1]}\n"
         await self.ctx.channel.send(msg)
 
         await self.update_scores()
+    
+    def get_winners(self):
+        """
+        Return the player(s) with the top score.
+
+        Returns
+        -------
+        `list`
+            List of players with the top score.
+        """
+        topscore = 0
+        topscorers = []
+        for name, score in self.scores.most_common():
+            if score == topscore:
+                topscorers.append(name)
+            if score > topscore:
+                topscorers.append(name)
+                topscore = score
+            if score < topscore:
+                break
+        return topscorers
 
     async def wait_for_votes(self, delay: float):
         """
@@ -381,12 +406,12 @@ class CobblersGame:
         """
         Update the scores at the end of the game.
         """
+        winners = self.get_winners()
         for player, score in self.scores.items():
             stats = await self.cog.config.member(player).all()
             stats["games"] += 1
             stats["points"] += score
-            # FIXME: event of a tie
-            if player == self.scores.most_common(1)[0][0]:
+            if player in winners:
                 stats["wins"] += 1
             await self.cog.config.member(player).set(stats)
 
