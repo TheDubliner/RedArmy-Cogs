@@ -227,11 +227,11 @@ class Cobblers(commands.Cog):
                 f"Type **{prefix[0]}{self.name} leave** to leave that game."
             )
 
-        await ctx.channel.send(
-            f"{ctx.author.mention} is starting a new game of _Cobblers_!"
-            )
         try:
             newgame = CobblersGame(self, ctx)
+            await ctx.channel.send(
+                f"{ctx.author.mention} is starting a new game of _Cobblers_!"
+                )
             newgame.players.append(ctx.author)
             self.games.append(newgame)
             await newgame.setup()
