@@ -36,6 +36,7 @@ class Cobblers(commands.Cog):
         self.bot = bot
         self.name = "cobblers"
         self.games = []
+        self.minplayers = 2
         self.maxplayers = 10
         self.config = Config.get_conf(
             self,

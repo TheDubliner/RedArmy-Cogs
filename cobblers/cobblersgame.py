@@ -160,6 +160,10 @@ class CobblersGame:
         """
         self._task = asyncio.create_task(self.get_players())
         await self._task
+        if not self.enough_players():
+            self.ctx.send("Not enough players to start. Quitting!")
+            self.cog.games.remove(self)
+            return
         await self.get_questions()
         self.live = True
         self._task = asyncio.create_task(self.run())
@@ -187,6 +191,11 @@ class CobblersGame:
         Runs the main game loop.
         """
         while self.live:
+            if not self.enough_players():
+                await self.ctx.send(
+                    "Not enough players to continue. Quitting!")
+                self.cog.games.remove(self)
+                return
             ans_delay = \
                 await self.cog.config.guild(self.ctx.guild).answersdelay()
             vote_delay = \
@@ -365,6 +374,14 @@ class CobblersGame:
         for page in pagify(self.msg):
             await self.ctx.send(page)
         self.msg = ''
+    
+    def enough_players(self) -> bool:
+        """
+        Check if there are enough players to continue.
+        """
+        if len(self.players) >= self.cog.minplayers:
+            return True
+        return False
 
     async def get_questions(self, questions: int = 100) -> list:
         """
