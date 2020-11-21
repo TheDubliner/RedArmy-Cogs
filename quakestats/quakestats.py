@@ -16,7 +16,7 @@ from redbot.core import (
 UNIQUE_ID = 539938880633039
 
 class QuakeStats(commands.Cog):
-    """Play Anno Domini with your friends!"""
+    """Display Quake Champions stats in the channel."""
     def __init__(self, bot):
         super().__init__()
         self.bot = bot
@@ -38,7 +38,6 @@ class QuakeStats(commands.Cog):
         """
         if ctx.invoked_subcommand is None:
             pass
-        # prefix = await ctx.bot.get_valid_prefixes()
         message = f"Still very much experimental!"
         await ctx.send(message)
 
@@ -46,7 +45,7 @@ class QuakeStats(commands.Cog):
     @commands.guild_only()
     async def setname(self, ctx, *, playername=None):
         """
-        Register your player name.
+        Register your player name with the bot.
         """
         if playername is None:
             return await ctx.send(
@@ -60,13 +59,13 @@ class QuakeStats(commands.Cog):
         """
         Get your player name if registered with the bot.
         """
-        prefix = await self.bot.get_valid_prefixes()
+        prefix = await self.bot.get_valid_prefixes()[0]
         uuid = await self.config.member(ctx.author).uuid()
         if uuid:
             return await ctx.send(f"Your registered player name is: {uuid}")
         return await ctx.send(
             f"It appears you haven’t registered your player name "
-            f"yet. Type **{prefix[0]}quakestats setname <name>** "
+            f"yet. Type **{prefix}{self.name} setname _<name>_** "
             f"to do so.")
 
     @quakestats.command()
@@ -74,12 +73,13 @@ class QuakeStats(commands.Cog):
         """
         Get stats for a specific player.
         """
+        # try to get player name for caller
         if playername is None:
             uuid = await self.config.member(ctx.author).uuid()
             if uuid:
                 playername = uuid
             else:
-                return
+        # try to get player name for mentioned person
         if ctx.message.mentions:
             if len(ctx.message.mentions) > 1:
                 return await ctx.channel.send(
@@ -91,6 +91,8 @@ class QuakeStats(commands.Cog):
                 else:
                     return await ctx.channel.send(
                         "This user hasn’t registered a Quake Champion name.")
+
+        # try to get stats for playername
         async with ctx.channel.typing():
             await asyncio.sleep(1)
             stats = self.api.get_player_stats(playername)

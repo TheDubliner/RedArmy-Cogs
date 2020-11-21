@@ -13,7 +13,7 @@ WEAPONS = [
     "ROCKET_LAUNCHER",
     "LIGHTNING_GUN",
     "RAILGUN",
-    "LAGBOLT"
+    "LAGBOLT",
     ]
 
 CHAMPIONS = [
@@ -32,7 +32,7 @@ CHAMPIONS = [
     "STROGG",
     "DEATH_KNIGHT",
     "ATHENA",
-    "EISEN"
+    "EISEN",
     ]
 
 MAPS = [
@@ -41,7 +41,7 @@ MAPS = [
     "BLOOD_COVENANT",
     "BURIAL_CHAMBER",
     "CORRUPTED_KEEP",
-    "FORTRESS_OF_THE_DEEP"
+    "FORTRESS_OF_THE_DEEP",
     ]
 
 RANKS = [
@@ -65,7 +65,7 @@ RANKS = [
     (825, "Bronze_04"),
     (750, "Bronze_03"),
     (675, "Bronze_02"),
-    (0, "Bronze_01")
+    (0, "Bronze_01"),
 ]
 
 HUMAN_RANKS = {
@@ -90,5 +90,5 @@ HUMAN_RANKS = {
     "Bronze_03": "Bronze III",
     "Bronze_02": "Bronze II",
     "Bronze_01": "Bronze I",
-    "Zero_01": "Zero"
+    "Zero_01": "Zero",
 }

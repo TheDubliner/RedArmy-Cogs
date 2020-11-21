@@ -374,7 +374,7 @@ class CobblersGame:
         for page in pagify(self.msg):
             await self.ctx.send(page)
         self.msg = ''
-    
+
     def enough_players(self) -> bool:
         """
         Check if there are enough players to continue.
