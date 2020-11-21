@@ -27,6 +27,7 @@ Load installed cogs:
 Name | Description
 --- | ---
 [Anno Domini](../master/README.md#anno-domini) | Play Anno Domini in your channel.
+[Chuck Norris](../master/README.md#chuck) | Spam your channel with Chuck Norris quotes.
 [Cobblers](../master/README.md#cobblers) | Play the word game Cobblers in your channel.
 [Quake Stats](../master/README.md#quake-stats) | Display Quake Champion stats.
 
@@ -63,6 +64,32 @@ Change the language for the game.
 **`[p]annodomini howtoplay`**
 
 Shows the basic game rules.
+
+## Chuck Norris
+
+This cog pulls up random quotes from the ChuckNorris.io API and pastes them in your channel.
+
+### Usage
+
+**`[p]chucknorris categories`**
+
+Returns a list of avaialble categories.
+
+**`[p]chucknorris random`**
+
+Spams a random Chuck Norris quote to the channel.
+
+**`[p]chucknorris random [category1,category2]`**
+
+Searches for a random Chuck Norris quote from the listed categories. Categories should be separated by commas, without spaces.
+
+**`[p]chucknorris random @user`**
+
+Returns the quote replacing Chuck Norris with _@user_’s name.
+
+**`[p]chucknorris search [term]`**
+
+Searches the Chuck Norris database for your search term.
 
 ## Cobblers
 
