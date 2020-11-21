@@ -88,7 +88,7 @@ class CobblersGame:
         """
         Generates an id for the game for concurrent games.
         """
-        if len(self.cog.games) == 9000:
+        if len(self.cog.games) >= 9000:
             raise TooManyGamesException("Games full!")
         games = [game.gid for game in self.cog.games]
         while True:
