@@ -34,7 +34,7 @@ class QuakeStats(commands.Cog):
     @commands.group(aliases=["qc"], invoke_without_command=True)
     async def quakestats(self, ctx, _):
         """
-        Command group.
+        Share Quake Champions stats in your channel.
         """
         if ctx.invoked_subcommand is None:
             pass
@@ -79,6 +79,10 @@ class QuakeStats(commands.Cog):
             if uuid:
                 playername = uuid
             else:
+                return await ctx.channel.send(
+                    "Please register your Quake Champion name first, provide "
+                    "a player name or mention someone.")
+
         # try to get player name for mentioned person
         if ctx.message.mentions:
             if len(ctx.message.mentions) > 1:
