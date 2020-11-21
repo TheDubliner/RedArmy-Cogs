@@ -1,5 +1,5 @@
 {
-    "author" : "TheDubliner",
+    "author" : ["TheDubliner"],
     "install_msg" : "Chuck Norris cog installed. Use at your own risk!",
     "name" : "ChuckNorris",
     "short" : "Display random quotes from the Chuck Norris API.",
