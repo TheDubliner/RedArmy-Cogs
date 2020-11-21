@@ -53,7 +53,7 @@ class AnnoDomini(commands.Cog):
     @commands.group(aliases=["ad"], invoke_without_command=True)
     async def annodomini(self, ctx, _):
         """
-        Command group.
+        Play a game of _Anno Domini_ with your friends!
         """
         prefix = await ctx.bot.get_valid_prefixes()
         message = (f"Fancy a game of Anno Domini? Type "

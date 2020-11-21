@@ -61,7 +61,7 @@ class Cobblers(commands.Cog):
     @commands.group(aliases=["cob"], invoke_without_command=True)
     async def cobblers(self, ctx: commands.Context, _):
         """
-        Command group.
+        Play a game of _Cobblers_ with your friends!
         """
         if ctx.invoked_subcommand is None:
             prefix = await ctx.bot.get_valid_prefixes()
