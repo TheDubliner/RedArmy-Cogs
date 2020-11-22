@@ -117,7 +117,7 @@ class ChuckNorris(commands.Cog):
             colour=discord.Colour.from_rgb(241, 90, 36),
             url=quote.get('url', None),
             description=quote.get('value'))
-        embed.set_image(url=quote.get('icon_url'))
+        embed.set_thumbnail(url=quote.get('icon_url'))
         return embed
 
     def chuck_404(self, message: str = "Oh noes, we didn’t find anything!"):
