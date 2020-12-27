@@ -37,9 +37,12 @@ class QuakeStats(commands.Cog):
         Share Quake Champions stats in your channel.
         """
         if ctx.invoked_subcommand is None:
-            pass
-        message = f"Still very much experimental!"
-        await ctx.send(message)
+            prefix = ctx.prefix
+            message = (
+                f"Didn’t recognise your command. "
+                f"Type **{prefix}quakestats player _playername_** or "
+                f"**{prefix}help quakestats** for more options.")
+            await ctx.send(message)
 
     @quakestats.command()
     @commands.guild_only()
