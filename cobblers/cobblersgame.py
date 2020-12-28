@@ -288,12 +288,12 @@ class CobblersGame:
 
         Parameters
         ----------
-        delay : float
+        delay : `float`
             How long users have to respond (in seconds).
 
         Returns
         -------
-        votes : dict
+        votes : `Counter`
             A dictionary of the points scored this round.
         """
         symbols = [
@@ -460,7 +460,7 @@ class CobblersGame:
                         name=f"Answer #{idx}", value=f"**{answer[1]}** ✅",
                         inline=False
                     )
-                else:  
+                else:
                     board_embed.add_field(
                         name=f"Answer #{idx}", value=f"{answer[1]} ❌\n" \
                         f"Posted by: {answer[0].name}", inline=False

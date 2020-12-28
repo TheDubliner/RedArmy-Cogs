@@ -192,7 +192,7 @@ class Cobblers(commands.Cog):
                 await ctx.send(f'Please enter a value between 10 and 300.')
 
     @cobblerssettings.command()
-    async def mentions(self, ctx: commands.Context, value: bool=None):
+    async def mentions(self, ctx: commands.Context, value: bool = None):
         """
         Set whether players should be mentioned.
 
@@ -202,15 +202,15 @@ class Cobblers(commands.Cog):
         if value is None:
             v = await self.config.guild(ctx.guild).doMention()
             if v:
-                await ctx.send('Players will be mentioned by the game.')
+                await ctx.send('Players **will** be mentioned by the game.')
             else:
-                await ctx.send('Players will not be mentioned by the game.')
+                await ctx.send('Players **will not** be mentioned by the game.')
         else:
             await self.config.guild(ctx.guild).doMention.set(value)
             if value:
-                await ctx.send('Players will now be mentioned by the game.')
+                await ctx.send('Players **will now** be mentioned by the game.')
             else:
-                await ctx.send('Players will no longer be mentioned by the '
+                await ctx.send('Players **will no longer** be mentioned by the '
                                'game.')
 
     @cobblers.command()
