@@ -149,7 +149,10 @@ class CobblersGame:
                         and len(self.players) < self.cog.maxplayers:
                         self.players.append(user)
 
-        player_names = [player.display_name for player in self.players]
+        if await self.cog.config.guild(self.ctx.guild).mentions():
+            player_names = [player.mention for player in self.players]
+        else:
+            player_names = [player.display_name for player in self.players]
         await self.ctx.channel.send(
             f"Starting game with {humanize_list(player_names)}"
         )
