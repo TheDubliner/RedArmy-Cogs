@@ -5,7 +5,7 @@ import re
 import time
 
 from pathlib import Path
-from typing import Optional
+from typing import Literal, Optional
 
 import discord
 
@@ -56,6 +56,16 @@ class Cobblers(commands.Cog):
         self.config.register_member(
             wins=0, games=0, points=0
         )
+
+    async def red_delete_data_for_user(self, *,
+        requester: Literal["discord", "owner", "user", "user_strict"],
+        user_id: int,
+        ):
+        """
+        Delete user data.
+        """
+        await self.config.user_from_id(user_id).clear()
+        return
 
     @commands.guild_only()
     @commands.group(aliases=["cob"], invoke_without_command=True)

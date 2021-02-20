@@ -2,6 +2,8 @@ import asyncio
 import requests
 import urllib.parse
 
+from typing import Literal
+
 import discord
 from tabulate import tabulate
 
@@ -30,6 +32,16 @@ class QuakeStats(commands.Cog):
         self.config.register_member(
             uuid=None
         )
+
+    async def red_delete_data_for_user(self, *,
+        requester: Literal["discord", "owner", "user", "user_strict"],
+        user_id: int,
+        ):
+        """
+        Delete user data.
+        """
+        await self.config.user_from_id(user_id).clear()
+        return
 
     @commands.group(aliases=["qc"], invoke_without_command=True)
     async def quakestats(self, ctx, _):

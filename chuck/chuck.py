@@ -37,6 +37,10 @@ class ChuckNorris(commands.Cog):
         )
         self.api = ChuckNorrisWrapper(self)
 
+    async def red_delete_data_for_user(self, **kwargs):
+        """No data to delete."""
+        return
+
     @commands.guild_only()
     @commands.group(aliases=["cn"], invoke_without_command=True)
     async def chucknorris(self, ctx: commands.Context, _):
