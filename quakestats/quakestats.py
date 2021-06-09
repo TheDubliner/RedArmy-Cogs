@@ -148,7 +148,8 @@ class QuakeStats(commands.Cog):
                 embed.set_image(url="attachment://" + img_name)
                 return await ctx.channel.send(file=img, embed=embed)
             else:
-                return await ctx.channel.send('User not found!')
+                # TODO: differentiate between service down or user not found
+                return await ctx.channel.send('API down or user not found!')
 
     @quakestats.command()
     async def match(self, ctx : commands.Context, *, player : str = None):

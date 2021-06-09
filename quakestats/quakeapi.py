@@ -93,7 +93,9 @@ class QuakeWrapper():
             url=url,
             params=params
         )
-        if result.status_code == 200 and not result.json().get('code') == 404:
+        if result.status_code == 200 and \
+           result.headers.get('content-type') == 'application/json' and not \
+           result.json().get('code') == 404:
             return result.json()
         return None
 
