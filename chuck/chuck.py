@@ -56,7 +56,7 @@ class ChuckNorris(commands.Cog):
             await ctx.send(message)
 
     @chucknorris.command()
-    async def random(self, ctx : commands.Context, category : str = None):
+    async def random(self, ctx: commands.Context, category: str = None):
         """
         Post a random Chuck Norris quote to the channel.
 
