@@ -52,10 +52,7 @@ class ChuckNorris(commands.Cog):
         """
         if ctx.invoked_subcommand is None:
             prefix = await ctx.bot.get_valid_prefixes()
-            message = (
-                f"Fancy a game of _Cobblers_? Type **{prefix[0]}{self.name} "
-                f"newgame** or **{prefix[0]}help {self.name}** for more "
-                f"options.")
+            message = (f"Type **{prefix[0]}help {self.name}** for options.")
             await ctx.send(message)
 
     @chucknorris.command()
