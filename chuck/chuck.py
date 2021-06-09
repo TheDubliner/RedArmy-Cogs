@@ -71,7 +71,8 @@ class ChuckNorris(commands.Cog):
             name = None
             if ctx.message.mentions:
                 name = ctx.message.mentions[0].display_name
-            category = ",".join(re.split("[, ]+", category))
+            if category:
+                category = ",".join(re.split("[, ]+", category))
             quote = self.api.get_random(category=category, name=name)
             if quote:
                 embed = self.build_embed(quote)
