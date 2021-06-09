@@ -74,7 +74,7 @@ class QuakeStats(commands.Cog):
         """
         Get your player name if registered with the bot.
         """
-        prefix = await self.bot.get_valid_prefixes()[0]
+        prefix = (await self.bot.get_valid_prefixes())[0]
         uuid = await self.config.member(ctx.author).uuid()
         if uuid:
             return await ctx.send(f"Your registered player name is: {uuid}")
