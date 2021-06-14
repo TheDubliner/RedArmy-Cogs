@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import Optional
 
 import asyncio
 import discord
@@ -36,9 +35,8 @@ class Stig(commands.Cog):
         """No data to delete."""
         return
 
-    @commands.guild_only()
-    @commands.group(invoke_without_command=True)
-    async def stig(self, ctx: commands.Context, name: str):
+    @commands.command()
+    async def stig(self, ctx: commands.Context, name: str = None):
         """
         Add The Stig to your channel.
 
@@ -47,7 +45,7 @@ class Stig(commands.Cog):
         """
         async with ctx.channel.typing():
             await asyncio.sleep(1)
-            quote = self.get_random_stig_quote()
+            quote = await self.get_random_stig_quote()
             if ctx.message.mentions:
                 name = ctx.message.mentions[0].display_name
                 quote = self.replace_name(quote, name)
@@ -65,6 +63,7 @@ class Stig(commands.Cog):
             quotes = yaml.safe_load(source)
         return random.choice(quotes)
 
+    # TODO: integrate this
     @staticmethod
     def replace_pronouns(sentence, name):
         sentence = re.sub(r"\b([Hh])is\b", r"\1er", sentence)
@@ -78,27 +77,18 @@ class Stig(commands.Cog):
         sentence = re.sub(r"\bStig\b", name, sentence)
         return sentence
 
+    # TODO: add this feature
+    def add_quote(self):
+        raise NotImplementedError
+
     def build_embed(self, quote):
         """
         Builds an embed message based on the provided quote.
         """
         embed = discord.Embed(
             title='The Stig',
-            colour=discord.Colour.from_rgb(241, 90, 36),
-            url=quote.get('url', None),
-            description=quote.get('value'))
+            colour=discord.Colour.from_rgb(0, 0, 245),
+            description=quote)
         embed.set_thumbnail(url="https://github.com/TheDubliner/RedArmy-Cogs/"
                                 "blob/master/stig/data/stig.jpeg?raw=true")
         return embed
-
-    @staticmethod
-    def filter_mentions(message: str) -> Optional[str]:
-        """
-        Filters out mentions and emotes.
-
-        Returns `None` if string is ''.
-        """
-        filtered_message = re.sub(r"<((@!?\d+)|(:.+?:\d+))>", r"", message)
-        if not filtered_message:
-            filtered_message = None
-        return filtered_message
