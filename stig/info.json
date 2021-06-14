@@ -1,0 +1,9 @@
+{
+    "author" : ["TheDubliner"],
+    "install_msg" : "The Stig cog is now installed. Use at your own risk!",
+    "name" : "TheStig",
+    "short" : "Display random quotes about Top Gear’s The Stig.",
+    "requirements" : [],
+    "description" : "Experimental",
+    "tags" : ["Fun", "Humour", "Top Gear"]
+}
