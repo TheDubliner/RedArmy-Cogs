@@ -35,20 +35,23 @@ class Stig(commands.Cog):
         """No data to delete."""
         return
 
-    @commands.command()
-    async def stig(self, ctx: commands.Context, name: str = None):
+    @commands.group(invoke_without_command=True)
+    async def stig(self, ctx: commands.Context,
+                   name: str = None, gender: str = "m"):
         """
         Add The Stig to your channel.
 
         Post a random Stig quote to the channel. You can also mention another
-        user, optionally with their gender.
+        user, optionally adding *f* to change gender.
         """
         async with ctx.channel.typing():
             await asyncio.sleep(1)
             quote = await self.get_random_stig_quote()
             if ctx.message.mentions:
                 name = ctx.message.mentions[0].display_name
-                quote = self.replace_name(quote, name)
+            quote = self.replace_name(quote, name)
+            if gender == "f":
+                quote = self.replace_pronouns(quote)
             if quote:
                 embed = self.build_embed(quote)
                 return await ctx.channel.send(embed=embed)
@@ -63,15 +66,14 @@ class Stig(commands.Cog):
             quotes = yaml.safe_load(source)
         return random.choice(quotes)
 
-    # TODO: integrate this
     @staticmethod
-    def replace_pronouns(sentence, name):
+    def replace_pronouns(sentence):
         sentence = re.sub(r"\b([Hh])is\b", r"\1er", sentence)
         sentence = re.sub(r"\bhe\b", "she", sentence)
         sentence = re.sub(r"\bHe\b", "She", sentence)
         sentence = re.sub(r"\b([Hh])im\b", r"\1er", sentence)
         return sentence
-    
+
     @staticmethod
     def replace_name(sentence, name):
         sentence = re.sub(r"\bStig\b", name, sentence)
