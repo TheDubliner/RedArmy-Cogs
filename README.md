@@ -30,6 +30,7 @@ Name | Description
 [Chuck Norris](../master/README.md#chuck) | Spam your channel with Chuck Norris quotes.
 [Cobblers](../master/README.md#cobblers) | Play the word game Cobblers in your channel.
 [Quake Stats](../master/README.md#quake-stats) | Display Quake Champion stats.
+[The Stig](../master/README.md#the-stig) | Bring on the Stig.
 
 ## Anno Domini
 
@@ -149,6 +150,19 @@ Display the Quake player name registered with the bot.
 
 Display stats from the player’s most recent match.
 
+## The Stig
+
+Add some random The Stig quotes to your channel.
+
+### Usage
+
+**`[p]stig [player name] [f]`**
+
+Adds a random Stig quote from the Top Gear show. Optionally mention a user to have their name inserted. Adding 'f' at the end changes the pronouns.
+
+**`[p]stig addquote [quote]`**
+
+Add your own quote to the list. The sentence should include the word *Stig* somewhere.
 # Help
 
 Use these cogs at your own risk!
