@@ -11,6 +11,9 @@ from redbot.core import (
     commands,
     data_manager
 )
+from redbot.core.utils import (
+    chat_formatting
+)
 
 UNIQUE_ID = 5140937153389558
 
@@ -18,6 +21,7 @@ UNIQUE_ID = 5140937153389558
 class Stig(commands.Cog):
 
     DATAFILENAME = "stigquotes.yaml"
+    CUSTOMFILENAME = "custom-stig-quotes.yaml"
     IMGFILENAME = "stig.jpeg"
 
     """Spam random The Stig quotes."""
@@ -56,14 +60,56 @@ class Stig(commands.Cog):
                 embed = self.build_embed(quote)
                 return await ctx.channel.send(embed=embed)
 
+    @stig.command(name="addquote", rest_is_raw=True)
+    async def add_stig_quote(self, ctx: commands.Context, *, quote: str):
+        """
+        Add a Stig quote the rotation.
+
+        Ensure your sentence includes the name _Stig_ somewhere!
+        """
+        if quote is not None:
+            if not re.search(r"Stig", quote):
+                message = ("Your message needs more Stig!")
+                return await ctx.send(message)
+
+            quote = quote.strip()
+
+            # remove quotes but only if symmetric
+            if quote.startswith('"') and quote.endswith('"'):
+                quote = quote[1:-1]
+
+            fname = data_manager.cog_data_path(self) / self.CUSTOMFILENAME
+            data = [quote]
+            if fname.exists():
+                with open(fname, "r") as f:
+                    existing_quotes = yaml.safe_load(f)
+                    data = existing_quotes + data
+            with open(fname, "w") as f:
+                f.write(yaml.dump(data))
+            return await ctx.channel.send(
+                chat_formatting.info("Added your quote!")
+            )
+        else:
+            await self.bot.say(
+                chat_formatting.warning(
+                    "Cannot add a quote with no text, "
+                    "attachments or embed images."
+                    ))
+
     async def get_random_stig_quote(self):
         """
         Fills the stack with cards for the game.
         """
-        sourcefile = Path.joinpath(data_manager.bundled_data_path(self),
-                                   f"{self.DATAFILENAME}")
-        with open(sourcefile, "r", encoding="utf8") as source:
+        bundledquotes = Path.joinpath(data_manager.bundled_data_path(self),
+                                      self.DATAFILENAME)
+        customquotes = Path.joinpath(data_manager.cog_data_path(self),
+                                     self.CUSTOMFILENAME)
+        with open(bundledquotes, "r", encoding="utf8") as source:
             quotes = yaml.safe_load(source)
+        if customquotes.exists():
+            with open(customquotes, "r", encoding="utf8") as source:
+                extraquotes = yaml.safe_load(source)
+                quotes = quotes + extraquotes
         return random.choice(quotes)
 
     @staticmethod
@@ -78,10 +124,6 @@ class Stig(commands.Cog):
     def replace_name(sentence, name):
         sentence = re.sub(r"\bStig\b", name, sentence)
         return sentence
-
-    # TODO: add this feature
-    def add_quote(self):
-        raise NotImplementedError
 
     def build_embed(self, quote):
         """
