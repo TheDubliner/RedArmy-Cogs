@@ -46,7 +46,7 @@ class Stig(commands.Cog):
         Add The Stig to your channel.
 
         Post a random Stig quote to the channel. You can also mention another
-        user, optionally adding *f* to change gender.
+        user, optionally adding **f** to change the gender.
         """
         async with ctx.channel.typing():
             await asyncio.sleep(1)
@@ -63,7 +63,7 @@ class Stig(commands.Cog):
     @stig.command(name="addquote", rest_is_raw=True)
     async def add_stig_quote(self, ctx: commands.Context, *, quote: str):
         """
-        Add a Stig quote the rotation.
+        Add a Stig quote to the rotation.
 
         Ensure your sentence includes the name _Stig_ somewhere!
         """
