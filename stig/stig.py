@@ -53,7 +53,8 @@ class Stig(commands.Cog):
             quote = await self.get_random_stig_quote()
             if ctx.message.mentions:
                 name = ctx.message.mentions[0].display_name
-            quote = self.replace_name(quote, name)
+            if name:
+                quote = self.replace_name(quote, name)
             if gender == "f":
                 quote = self.replace_pronouns(quote)
             if quote:
