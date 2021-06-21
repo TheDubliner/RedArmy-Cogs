@@ -19,6 +19,9 @@ UNIQUE_ID = 539938880633039
 
 class QuakeStats(commands.Cog):
     """Display Quake Champions stats in the channel."""
+
+    __version__ = "0.1.0"
+
     def __init__(self, bot):
         super().__init__()
         self.bot = bot
@@ -183,6 +186,16 @@ class QuakeStats(commands.Cog):
             )
             stats = "```\n" + self._get_table(mstats) + "\n```"
             return await ctx.channel.send(stats)
+
+    @quakestats.command()
+    async def version(self, ctx: commands.Context):
+        """
+        Display the current cog version.
+        """
+        await ctx.reply(
+            f"This cog is on version {self.__version__}.",
+            mention_author=False
+        )
 
     @staticmethod
     def _get_table(stats):

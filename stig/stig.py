@@ -20,6 +20,8 @@ UNIQUE_ID = 5140937153389558
 
 class Stig(commands.Cog):
 
+    __version__ = "0.1.0"
+
     DATAFILENAME = "stigquotes.yaml"
     CUSTOMFILENAME = "custom-stig-quotes.yaml"
     IMGFILENAME = "stig.jpeg"
@@ -96,6 +98,16 @@ class Stig(commands.Cog):
                     "Cannot add a quote with no text, "
                     "attachments or embed images."
                     ))
+
+    @stig.command()
+    async def version(self, ctx: commands.Context):
+        """
+        Display the current cog version.
+        """
+        await ctx.reply(
+            f"This cog is on version {self.__version__}.",
+            mention_author=False
+        )
 
     async def get_random_stig_quote(self):
         """

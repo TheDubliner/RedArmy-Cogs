@@ -31,6 +31,9 @@ UNIQUE_ID = 262597293959968
 
 class Cobblers(commands.Cog):
     """Play Cobblers with your friends!"""
+
+    __version__ = "0.1.0"
+
     def __init__(self, bot):
         super().__init__()
         self.bot = bot
@@ -470,6 +473,16 @@ class Cobblers(commands.Cog):
         """
         await ctx.send(
             "This cog is based on the board game _Balderdash_."
+        )
+
+    @cobblers.command()
+    async def version(self, ctx: commands.Context):
+        """
+        Display the current cog version.
+        """
+        await ctx.reply(
+            f"This cog is on version {self.__version__}.",
+            mention_author=False
         )
 
     async def _get_topics(self, ctx: commands.Context) -> list:

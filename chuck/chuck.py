@@ -26,6 +26,9 @@ UNIQUE_ID = 4927347237235008
 
 class ChuckNorris(commands.Cog):
     """Spam random Chuck Norris quotes."""
+
+    __version__ = "0.1.0"
+
     def __init__(self, bot):
         super().__init__()
         self.bot = bot
@@ -80,7 +83,6 @@ class ChuckNorris(commands.Cog):
             else:
                 return await ctx.channel.send(embed=self.chuck_404())
 
-
     @chucknorris.command()
     async def categories(self, ctx : commands.Context):
         """
@@ -110,6 +112,16 @@ class ChuckNorris(commands.Cog):
                 ))
         else:
             return await ctx.channel.send("You need to add a search term!")
+
+    @chucknorris.command()
+    async def version(self, ctx: commands.Context):
+        """
+        Display the current cog version.
+        """
+        await ctx.reply(
+            f"This cog is on version {self.__version__}.",
+            mention_author=False
+        )
 
     def build_embed(self, quote):
         """
