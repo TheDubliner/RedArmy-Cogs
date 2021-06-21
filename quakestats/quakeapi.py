@@ -159,7 +159,8 @@ class QuakeWrapper():
         return None
 
     def get_leaderboard(
-        self, board: str, from_: str, season: str) -> Optional[dict]:
+        self, board: str, from_: str, season: str = "current") \
+            -> Optional[dict]:
         """
         Queries the API for a player’s recent match stats.
 
