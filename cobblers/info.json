@@ -1,5 +1,5 @@
 {
-    "author" : "TheDubliner",
+    "author" : ["TheDubliner"],
     "install_msg" : "Cobblers is now installed. Have fun!",
     "name" : "Cobblers",
     "short" : "Word game based on Balderdash.",
