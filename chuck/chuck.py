@@ -1,4 +1,3 @@
-from pathlib import Path
 from typing import Optional
 
 import asyncio
@@ -6,15 +5,11 @@ import discord
 import re
 
 from redbot.core import (
-    checks,
     Config,
     commands,
-    data_manager
 )
 from redbot.core.utils.chat_formatting import (
     humanize_list,
-    pagify,
-    box
 )
 
 from .chucknorrisapi import (
