@@ -280,6 +280,7 @@ class Cobblers(commands.Cog):
         already_in_game = self._get_user_game(ctx.author)
         if already_in_game:
             await ctx.channel.send(
+                #TODO: factor out
                 f"{ctx.author.name}, you’re already playing a game!")
             return
 

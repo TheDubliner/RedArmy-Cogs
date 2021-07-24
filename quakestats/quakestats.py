@@ -119,6 +119,7 @@ class QuakeStats(commands.Cog):
             await asyncio.sleep(1)
             stats = self.api.get_player_stats(playername)
             if stats:
+                # TODO: factor out
                 duelrank = self.api.get_player_rank(
                     stats["playerRatings"]["duel"]["rating"], human=True)
                 duetrank = self.api.get_player_rank(

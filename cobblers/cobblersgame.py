@@ -108,7 +108,7 @@ class CobblersGame:
         """
         Cleanup code when a user times out.
         """
-        # TODO remove the player from the game
+        # TODO: remove the player from the game
         await self.ctx.send(
             'You did not respond in time. Shutting down.'
         )
