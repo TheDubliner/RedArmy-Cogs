@@ -20,7 +20,7 @@ UNIQUE_ID = 539938880633039
 class QuakeStats(commands.Cog):
     """Display Quake Champions stats in the channel."""
 
-    __version__ = "0.1.0"
+    __version__ = "0.1.1"
 
     def __init__(self, bot):
         super().__init__()
@@ -181,12 +181,15 @@ class QuakeStats(commands.Cog):
         async with ctx.channel.typing():
             await asyncio.sleep(1)
             pstats = self.api.get_player_stats(player)
-            match = pstats["matches"].pop()
-            mstats = self.api.get_match_stats(
-                uid=match["id"], name=player
-            )
-            stats = "```\n" + self._get_table(mstats) + "\n```"
-            return await ctx.channel.send(stats)
+            if pstats:
+                match = pstats["matches"].pop()
+                mstats = self.api.get_match_stats(
+                    uid=match["id"], name=player
+                )
+                stats = "```\n" + self._get_table(mstats) + "\n```"
+                return await ctx.channel.send(stats)
+            else:
+                return await ctx.channel.send('API down!')
 
     @quakestats.command()
     async def version(self, ctx: commands.Context):
