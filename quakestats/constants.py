@@ -1,4 +1,4 @@
-BASEURL = "https://stats.quake.com"
+BASEURL = "https://quake-stats.bethesda.net"
 APIEXT = "/api/v2/"
 
 WEAPONS = [
