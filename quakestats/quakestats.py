@@ -7,6 +7,7 @@ from typing import Literal
 import discord
 from tabulate import tabulate
 
+from .constants import BASEURL
 from .quakeapi import QuakeWrapper
 
 from redbot.core import (
@@ -144,11 +145,11 @@ class QuakeStats(commands.Cog):
                 embed = discord.Embed(
                     title='Quake Champions Stats for ' + stats["name"],
                     colour=discord.Colour(0x9b5b16),
-                    url="https://stats.quake.com/profile/" + \
+                    url=f"{BASEURL}/profile/" + \
                         urllib.parse.quote(stats["name"]),
                     description=msg)
                 embed.set_footer(text="Quake Stats",
-                    icon_url="https://stats.quake.com/fav/favicon-96x96.png")
+                    icon_url=f"{BASEURL}/fav/favicon-96x96.png")
                 embed.set_image(url="attachment://" + img_name)
                 return await ctx.channel.send(file=img, embed=embed)
             else:
