@@ -161,7 +161,7 @@ class QuakeWrapper():
         self, board: str, from_: str, season: str = "current") \
             -> Optional[dict]:
         """
-        Queries the API for a player’s recent match stats.
+        Queries the API for the current leaderboard.
 
         Parameters
         ----------
@@ -205,7 +205,7 @@ class QuakeWrapper():
             return HUMAN_RANKS[grade]
         return grade
 
-    def get_player_image(self, stats):
+    def get_player_image(self, stats: dict) -> BytesIO:
         """
         Creates the player’s background/profile image imprinted with name and
         level.
