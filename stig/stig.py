@@ -111,7 +111,7 @@ class Stig(commands.Cog):
 
     async def get_random_stig_quote(self):
         """
-        Fills the stack with cards for the game.
+        Returns a random Stig quote.
         """
         bundledquotes = Path.joinpath(data_manager.bundled_data_path(self),
                                       self.DATAFILENAME)
