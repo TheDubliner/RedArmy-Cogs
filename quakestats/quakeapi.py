@@ -18,7 +18,6 @@ from .constants import (
 )
 
 from redbot.core import (
-    commands,
     data_manager
 )
 
