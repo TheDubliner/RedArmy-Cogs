@@ -13,7 +13,6 @@ from .quakeapi import QuakeWrapper
 from redbot.core import (
     Config,
     commands,
-    data_manager
 )
 
 UNIQUE_ID = 539938880633039
