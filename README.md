@@ -146,7 +146,7 @@ Register your Quake player name with the bot.
 
 Display the Quake player name registered with the bot.
 
-**`[p]quakestats match [player name]`**
+**`[p]quakestats lastmatch [player name]`**
 
 Display stats from the player’s most recent match.
 

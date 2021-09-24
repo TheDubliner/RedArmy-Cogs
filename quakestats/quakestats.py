@@ -157,7 +157,7 @@ class QuakeStats(commands.Cog):
                 return await ctx.channel.send('API down or user not found!')
 
     @quakestats.command()
-    async def match(self, ctx : commands.Context, *, player : str = None):
+    async def lastmatch(self, ctx : commands.Context, *, player : str = None):
         """
         Get stats for your most recent match.
         """
