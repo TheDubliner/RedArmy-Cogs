@@ -1,0 +1,9 @@
+{
+    "author" : ["TheDubliner"],
+    "install_msg" : "The Fast Show cog installed. Use at your own risk!",
+    "name" : "FastShow",
+    "short" : "Display random quotes from The Fast Show.",
+    "requirements" : ["PyYAML"],
+    "description" : "Experimental",
+    "tags" : ["Fun", "Humour", "Fast Show"]
+}

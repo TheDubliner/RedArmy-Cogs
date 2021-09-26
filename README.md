@@ -29,6 +29,7 @@ Name | Description
 [Anno Domini](../master/README.md#anno-domini) | Play Anno Domini in your channel.
 [Chuck Norris](../master/README.md#chuck) | Spam your channel with Chuck Norris quotes.
 [Cobblers](../master/README.md#cobblers) | Play the word game Cobblers in your channel.
+[The Fast Show](../master/README.md#fast-show) | Spams random quotes from _The Fast Show_.
 [Quake Stats](../master/README.md#quake-stats) | Display Quake Champion stats.
 [The Stig](../master/README.md#the-stig) | Bring on the Stig.
 
@@ -125,6 +126,28 @@ Display/change the game settings (e.g. length of time for setting up, writing an
 **`[p]cobblers howtoplay`**
 
 Show the basic game rules.
+
+## The Fast Show
+
+This cog listens for trigger words and spams random quotes from 90s British sketch show _The Fast Show_ to active channels.
+
+### Usage
+
+**`[p]fastshow channel`**
+
+Choose which channels the cog should listen in on. Running this without a subcommand shows the current list of active channels. Use **add**, **addall**, **remove** and **removeall** to modify the list for the server.
+
+**`[p]fastshow toggle`**
+
+Toggle whether the cog is active or not.
+
+**`[p]fastshow version`**
+
+Display the current version.
+
+**`[p]fastshow about`**
+
+Display information about the cog.
 
 ## Quake Stats
 
