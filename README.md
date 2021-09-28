@@ -75,7 +75,7 @@ This cog pulls up random quotes from the ChuckNorris.io API and pastes them in y
 
 **`[p]chucknorris categories`**
 
-Returns a list of avaialble categories.
+Returns a list of available categories.
 
 **`[p]chucknorris random`**
 
@@ -179,9 +179,9 @@ Add some random The Stig quotes to your channel.
 
 ### Usage
 
-**`[p]stig [player name] [f]`**
+**`[p]stig [username] <f>`**
 
-Adds a random Stig quote from the Top Gear show. Optionally mention a user to have their name inserted. Adding 'f' at the end changes the pronouns.
+Adds a random Stig quote from the Top Gear show. Optionally mention a user to have their name inserted. Adding _f_ at the end changes the pronouns.
 
 **`[p]stig addquote [quote]`**
 
